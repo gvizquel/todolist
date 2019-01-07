@@ -1,0 +1,79 @@
+<!-- /.modal -->
+{% extends "base.html" %}
+
+{% block title %} Cuenta | Cambiar Clave {% endblock title %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Cuenta
+                <small>Cambio de clave del usuario</small>
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="box {%if form.errors %}box-danger {%else%}box-warning{%endif%}">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Datos del Usuario</h3>
+                        </div>
+                        <!-- form start -->
+                        <form method="post">
+                            <div class="box-body">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <div class="form-group has-feedback {%if form.old_password.errors %}has-error{%endif%}">
+                                    <input type="password" name="old_password" class="form-control" id="id_old_password" required placeholder="Escriba la contraseña anterior" autofocus>
+                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    <span class="help-block">
+                                        {% for error in form.old_password.errors %}
+                                            <ul>
+                                                <li class="text-red">{{ error }}</li>
+                                            </ul>
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <div class="form-group has-feedback {%if form.new_password1.errors or form.new_password2.errors %}has-error{%endif%}">
+                                    <input type="password" name="new_password1" class="form-control" id="id_new_password1" required placeholder="Escriba la nueva contraseña">
+                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    <span class="help-block">
+                                        {% for error in form.new_password1.errors %}
+                                            <ul>
+                                                <li class="text-red">{{ error }}</li>
+                                            </ul>
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <div class="form-group has-feedback {%if form.new_password1.errors or form.new_password2.errors %}has-error{%endif%}">
+                                    <input type="password" name="new_password2" class="form-control" id="id_new_password2" required placeholder="Confirme la nueva contraseña">
+                                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                                    <span class="help-block">
+                                        {% for error in form.new_password2.errors %}
+                                            <ul>
+                                                <li class="text-red">{{ error }}</li>
+                                            </ul>
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn {%if form.errors %}btn-danger {%else%}btn-warning{%endif%} pull-right">Actualizar Clave</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+        </section>
+        <!-- /.content -->
+        <div id="popup" class="modal fade" role="dialog"></div>
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock content %}

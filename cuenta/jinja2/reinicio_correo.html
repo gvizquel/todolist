@@ -1,0 +1,10 @@
+{% autoescape off %}
+    Has recibido este correo porque solicitaste que se reiniciara tú clave
+    en {{ settings.NOMBRE_APP }}. Por favor vaya al siguiente link y escriba una nueva contraseña:
+
+    {{ protocol }}://{{ domain }}{{ url('cuenta:nueva-clave', args=[uid, token]) }}
+
+    En caso de que lo hayas olvidado tu usuario es: {{ user.username }}
+
+    Las credenciales de este enlace tienen una duración de dos (2) días.
+{% endautoescape %}

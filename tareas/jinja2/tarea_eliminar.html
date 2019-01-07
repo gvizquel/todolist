@@ -1,0 +1,40 @@
+<!--<div class="modal fade" id="modal-default">-->
+<div class="modal-danger" id="tarea_eliminar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Eliminar Tarea</h4>
+            </div>
+            {% if not object.resuelta %}
+                <form class="form-horizontal" role="form" action="{{ url('tarea:eliminar', args=[object.pk]) }}" method="post">
+            {% endif %}
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <div class="modal-body">
+                    <dl class="dl-horizontal">
+                        <dt>Tarea</dt>
+                        <dd>{{ object }} {{object.resuelta}}</dd>
+                    </dl>
+                    {% if not object.resuelta %}
+                        <p>¿Está seguro de querer eliminar la tarea?</p>
+                    {% else %}
+                        <p>La tarea no puede ser eliminada ya que la tarea ya fue resuelta.</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+                    {% if not object.resuelta %}
+                        <button type="submit" class="btn btn-outline pull-right">Eliminar</button>
+                    {% endif %}
+                </div>
+            {% if not object.resuelta %}
+                </form>
+            {% endif %}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

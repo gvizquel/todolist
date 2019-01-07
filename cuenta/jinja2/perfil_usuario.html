@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block title %} Cuenta | Perfil {% endblock title %}
+
+{% block stylesheets %}
+    {{ super() }}
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="{{ static('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ static('plugins/iCheck/all.css') }}">
+    <!-- Cropper -->
+    <link href="{{ static('css/cropper.min.css') }}" rel="stylesheet">
+    <!-- Input Mask -->
+    <link href="/static/plugins/input-mask/css/inputmask.css" type="text/css" media="screen" rel="stylesheet" />
+    <style>
+      .label {
+        cursor: pointer;
+        padding: 0px;
+      }
+
+      .progress {
+        display: none;
+        margin-bottom: 1rem;
+      }
+
+      .img-container img {
+        max-width: 100%;
+      }
+    </style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Cuenta
+                <small>Perfil del usuario</small>
+            </h1>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            {% if get_messages(request) %}
+                {% for message in get_messages(request) %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {% if message.tags == 'error' %}
+                            <h4><i class="icon fa fa-ban"></i> ¡Alerta!</h4>
+                        {% elif message.tags == 'warning' %}
+                            <h4><i class="icon fa fa-warning"></i> ¡Cuidado!</h4>
+                        {% elif message.tags == 'success' %}
+                            <h4><i class="icon fa fa-check"></i> ¡Exito!</h4>
+                        {% elif message.tags == 'info' %}
+                            <h4><i class="icon fa fa-info"></i> ¡Atención!</h4>
+                        {% endif %}
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> ¡Alerta!</h4>
+                    Hay errores en el formulario de perfil. Por favor corríjalos y vuelva a intentar actualizar sus datos.
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-2">
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            <label class="label" data-toggle="tooltip" title="Change your avatar">
+                                <img class="img-responsive center-block img-rounded " id="avatar_img" src="{{ request.user.avatar.url }}" alt="{{ request.user }}">
+                                <form method="post" enctype="multipart/form-data" action="{{ url('cuenta:avatar') }}" id="formUpload">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    <input type="file" class="sr-only" id="id_avatar" name="avatar" accept="image/*">
+                                  </form>
+                            </label>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <a href="{{ url('cuenta:cambiar-clave') }}" class="btn btn-primary btn-block">Cambiar Password</a>
+                        </div>
+                            <!-- /.box-footer -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-10">
+                    <!-- Horizontal Form -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Datos del Usuario</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal" method="post" role="form">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_first_name" class="col-sm-4 control-label">Nombre</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    {{ form.first_name }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.first_name.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_otros_nombres" class="col-sm-4 control-label">Otros Nombres</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                        {{ form.otros_nombres }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.otros_nombres.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_last_name" class="col-sm-4 control-label">Apellido</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                        {{ form.last_name }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.last_name.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_otros_apellidos" class="col-sm-4 control-label">Otros Apellidos</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                        {{ form.otros_apellidos }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.otros_apellidos.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_cedula_identidad" class="col-sm-4 control-label">Cédula de Identidad</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        V <input type="radio" value="V" name="letra_cedula_identidad" id="id_letra_cedula_identidad" class="minimal" {% if form.letra_cedula_identidad.value() == 'V' %} checked {% endif %}>
+                                                        &nbsp;E <input type="radio" value="E" name="letra_cedula_identidad" id="id_letra_cedula_identidad" class="minimal" {% if form.letra_cedula_identidad.value() == 'E' %} checked {% endif %}>
+                                                    </span>
+                                                    <input type="number" name="cedula_identidad" value="{{ form.cedula_identidad.value() }}" id="id_cedula_identidad" class="form-control" />
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.cedula_identidad.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+
+                                                <span class="help-block">
+                                                    {% for error in form.letra_cedula_identidad.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_email_secundario" class="col-sm-4 control-label">Correo Secundario</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    {{ form.email_secundario }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.email_secundario.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_telefono" class="col-sm-4 control-label">Teléfono Local</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    {{ form.telefono }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.telefono.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_celular" class="col-sm-4 control-label">Teléfono Celular</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    {{ form.celular }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.celular.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_fecha_nacimiento" class="col-sm-4 control-label">Fecha Nac.</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    {{ form.fecha_nacimiento }}
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.fecha_nacimiento.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="id_sexo" class="col-sm-4 control-label">Sexo</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    MASCULINO <input type="radio" value="M" name="sexo" id="id_sexo" class="minimal" {% if form.sexo.value() == 'M' %} checked {% endif %}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEMENINO <input type="radio" value="F" name="sexo" id="id_sexo" class="minimal" {% if form.sexo.value() == 'F' %} checked {% endif %}>
+                                                </div>
+                                                <span class="help-block">
+                                                    {% for error in form.letra_cedula_identidad.errors %}
+                                                        <ul>
+                                                            <li class="text-red">{{ error }}</li>
+                                                        </ul>
+                                                    {% endfor %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary pull-right">Actualizar Perfil</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <img id="image" src="{{ request.user.avatar.url }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock content %}
+
+{% block javascripts %}
+    {{ super() }}
+    <!-- bootstrap datepicker -->
+    <script src="{{ static('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ static('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js') }}"></script>
+    <!-- InputMask -->
+    <script src="{{ static('plugins/input-mask/dist/jquery.inputmask.js') }}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ static('plugins/iCheck/icheck.min.js') }}"></script>
+    <!-- cropper 4.0.0 -->
+    <script src="{{ static('js/cropper.min.js') }}"></script>
+    <!-- page script -->
+    <script>
+
+        $('[data-mask]').inputmask()
+
+        //Date picker
+        $('#id_fecha_nacimiento').datepicker({
+            autoclose: true,
+            // startDate: "now",
+            format: "dd/mm/yyyy",
+            language: "es"
+        })
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            radioClass   : 'iradio_minimal-blue'
+        })
+
+        // Script para cortar el avatar con crop.js
+        window.addEventListener('DOMContentLoaded', function () {
+            var avatar = document.getElementById('avatar_img');
+            var user_avatar = document.getElementById('user_avatar');
+            var image = document.getElementById('image');
+            var input = document.getElementById('id_avatar');
+            var $progress = $('.progress');
+            var $progressBar = $('.progress-bar');
+            var $alert = $('.alert');
+            var $modal = $('#modal');
+            var cropper;
+            var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+            input.addEventListener('change', function (e) {
+                var files = e.target.files;
+                var done = function (url) {
+                    input.value = '';
+                    image.src = url;
+                    $alert.hide();
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
+
+                if (files && files.length > 0) {
+                    file = files[0];
+
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function (e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+            $modal.on('shown.bs.modal', function () {
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                });
+            }).on('hidden.bs.modal', function () {
+                cropper.destroy();
+                cropper = null;
+            });
+
+            document.getElementById('crop').addEventListener('click', function () {
+                var initialAvatarURL;
+                var canvas;
+
+                $modal.modal('hide');
+
+                if (cropper) {
+                    canvas = cropper.getCroppedCanvas({width: 160, height: 160,});
+                    initialAvatarURL = avatar.src;
+                    avatar.src = canvas.toDataURL(); //Altero el avatar del perfil
+                    user_avatar.src = canvas.toDataURL(); //Altero el avatar de la barra superior
+                    $progress.show();
+                    $alert.removeClass('alert-success alert-warning');
+                    canvas.toBlob(function (blob) {
+                        var formData = new FormData();
+
+                        formData.append('avatar', blob, 'avatar.jpg');
+                        $.ajax('{{ url('cuenta:avatar')}}', {
+                            method: 'POST',
+                            headers:{"X-CSRFToken": csrftoken},
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+
+                            xhr: function () {
+                                var xhr = new XMLHttpRequest();
+
+                                xhr.upload.onprogress = function (e) {
+                                    var percent = '0';
+                                    var percentage = '0%';
+
+                                    if (e.lengthComputable) {
+                                        percent = Math.round((e.loaded / e.total) * 100);
+                                        percentage = percent + '%';
+                                        $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+                                    }
+                                };
+
+                                return xhr;
+                            },
+
+                            success: function () {
+                            },
+
+                            error: function () {
+                                avatar.src = initialAvatarURL;
+                            },
+
+                            complete: function () {
+                              $progress.hide();
+                            },
+                        });
+                        return false;
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

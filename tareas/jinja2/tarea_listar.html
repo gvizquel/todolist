@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %} Tareas | Listado {% endblock title %}
+
+{% block stylesheets %}
+    {{ super() }}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ static('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static('bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static('bower_components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}">
+    <style>
+        /* Tooltip */
+        .test + .tooltip > .tooltip-inner {
+            background-color: #ffffff;
+            color: #041973;
+            text-align: justify;
+            border: 1px solid #041973;
+            padding: 10px;
+            font-size: 12px;
+        }
+        /* Tooltip on top */
+        .test + .tooltip.top > .tooltip-arrow {
+            border-top: 5px solid #041973;
+        }
+        /* Tooltip on right */
+        .test + .tooltip.top > .tooltip-arrow {
+            border-right: 5px solid #041973;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Tarea
+                <small>Una tarea es una actividad que una persona debe realizar.</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-list-alt"></i> Tareas</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            {% if get_messages(request) %}
+                {% for message in get_messages(request) %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {% if message.tags == 'error' %}
+                            <h4><i class="icon fa fa-ban"></i> ¡Alerta!</h4>
+                        {% elif message.tags == 'warning' %}
+                            <h4><i class="icon fa fa-warning"></i> ¡Cuidado!</h4>
+                        {% elif message.tags == 'success' %}
+                            <h4><i class="icon fa fa-check"></i> ¡Exito!</h4>
+                        {% elif message.tags == 'info' %}
+                            <h4><i class="icon fa fa-info"></i> ¡Atención!</h4>
+                        {% endif %}
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Tareas</h3>
+                            <button onclick="return abrir_modal('{{ url('tarea:agregar') }}')" data-toggle="tooltip" title="Agregar" type="button" class="btn btn-success pull-right"><span class="fa fa-plus"></span> Agregar Tarea</button>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Tarea</th>
+                                        <th class="text-center">Resuelta</th>
+                                        <th class="text-center">Fecha/Hora de Resolución</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for object in object_list %}
+                                    <tr>
+                                        <td>{{ object.tarea }}</td>
+                                        <td class="text-center">
+                                            {% if object.resuelta: %}
+                                                <i class="fa fa-check-circle-o" style="color:green"></i>
+                                            {% else %}
+                                                <i class="fa fa-times-circle-o" style="color:red"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">{{ object.fecha_resolucion }}</td>
+                                        <td class="text-center">
+                                            <button onclick="return abrir_modal('{{ url('tarea:detalle', args=[object.pk]) }}')" data-toggle="tooltip" title="Ver" type="button" class="btn btn-default btn-xs"><span class="fa fa-eye"></span></button>
+
+                                            {% if not object.resuelta: %}
+                                                <button onclick="return abrir_modal('{{ url('tarea:editar', args=[object.pk]) }}')" data-toggle="tooltip" title="Editar" type="button" class="btn btn-primary btn-xs"><span class="fa fa-pencil"></span></button>
+                                                <button onclick="return abrir_modal('{{ url('tarea:eliminar', args=[object.pk]) }}')" data-toggle="tooltip" title="Eliminar" type="button" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></button>
+                                                <button onclick="return abrir_modal('{{ url('tarea:marcar', args=[object.pk]) }}')" data-toggle="tooltip" title="Marcar como resuelta" type="button" class="btn btn-success btn-xs"><span class="fa fa-check"></span></button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+        <div id="popup" class="modal fade" role="dialog"></div>
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock content %}
+
+{% block javascripts %}
+    {{ super() }}
+    <!-- DataTables -->
+    <script src="{{ static('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ static('bower_components/jszip/dist/jszip.min.js') }}"></script>
+    <script src="{{ static('bower_components/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ static('bower_components/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ static('bower_components/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- page script -->
+    <script>
+        function abrir_modal(url) {
+            $('#popup').load(url, function () {
+                $(this).modal('show');
+            });
+            return false;
+        }
+
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+
+                paging: true,
+                lengthChange: false,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                columnDefs: [
+                    { "targets": [2, 3], "orderable": false },
+                    { "targets": [2, 3], "searchable": false },
+                ],
+                language: {
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Lo sentimos, no encontramos nada",
+                    info: "Mostrando la página _PAGE_ de _PAGES_",
+                    infoEmpty: "Sin registros disponibles",
+                    infoFiltered: "(Filtrados de untotal de _MAX_ registros)",
+                    search: "Buscar: ",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Previo"
+                    },
+                    buttons: {
+                        copy: "Copiar"
+                    },
+                    decimal: "-",
+                    thousands: "."
+                },
+                buttons: ['copy', 'csv', 'pdf']
+            });
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-sm-6:eq(0)');
+
+        });
+    </script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+{% endblock javascripts %}

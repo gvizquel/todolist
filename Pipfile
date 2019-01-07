@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pep8 = "*"
+pylint = "*"
+
+[packages]
+django = "*"
+django-settings-export = "*"
+jinja2 = "*"
+psycopg2-binary = "*"
+psycopg2 = "*"
+pillow = "*"
+requests = "*"
+
+[requires]
+python_version = "3.7"
