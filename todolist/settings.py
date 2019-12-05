@@ -234,18 +234,11 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'America/Caracas'
+
 # Let's make things happen
 # CELERY_BEAT_SCHEDULE = {
-#     'send-summary-every-hour': {
-#         'task': 'add',
-#         # There are 4 ways we can handle time, read further
-#         'schedule': 60.0,
-#         # If you're using any arguments
-#         'args': (3, 7),
-#     },
-#     # Executes every Friday at 4pm
-#     'send-notification-on-friday-afternoon': {
-#         'task': 'apps.task.tasks.prueba',
-#         'schedule': crontab(hour=16, day_of_week=5),
+#     'solve-task-in-todo-list': {
+#         'task': 'apps.task.tasks.check_task',
+#         'schedule': 30.0,
 #     },
 # }
