@@ -18,6 +18,7 @@ pillow = "*"
 django-rosetta = "*"
 django-bootstrap4 = "*"
 django-settings-export = "*"
+celery = "*"
 
 [requires]
 python_version = "3.7"
