@@ -10,6 +10,7 @@ dj-database-url==0.5.0
 Django==2.2.8
 django-bootstrap-datepicker-plus==3.0.5
 django-bootstrap4==1.0.1
+django-celery-beat==1.5.0
 django-contrib-comments==1.9.2
 django-extensions==2.2.5
 django-js-asset==1.2.2
@@ -17,6 +18,7 @@ django-mptt==0.10.0
 django-rosetta==0.9.3
 django-settings-export==1.2.1
 django-tagging==0.4.6
+django-timezone-field==4.0
 django-xmlrpc==0.1.8
 idna==2.8
 importlib-metadata==1.2.0
@@ -34,7 +36,10 @@ pylint==2.4.4
 pylint-django==2.0.13
 pylint-plugin-utils==0.6
 pyparsing==2.4.5
+python-crontab==2.4.0
+python-dateutil==2.8.1
 pytz==2019.3
+redis==3.3.11
 regex==2019.11.1
 requests==2.22.0
 six==1.13.0

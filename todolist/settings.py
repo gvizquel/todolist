@@ -4,10 +4,10 @@ import os
 
 # Django Libraries
 from django.utils.translation import ugettext_lazy as _
+from celery.schedules import crontab
 
 # Thirdparty Libraries
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import todolist
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'django_extensions',
+    'django_celery_beat',
 ]
 
 SITE_ID = 1
@@ -224,3 +225,27 @@ SETTINGS_EXPORT = [
     'INITIAL_A',
     'INITIAL_B'
 ]
+
+
+# celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Caracas'
+# Let's make things happen
+# CELERY_BEAT_SCHEDULE = {
+#     'send-summary-every-hour': {
+#         'task': 'add',
+#         # There are 4 ways we can handle time, read further
+#         'schedule': 60.0,
+#         # If you're using any arguments
+#         'args': (3, 7),
+#     },
+#     # Executes every Friday at 4pm
+#     'send-notification-on-friday-afternoon': {
+#         'task': 'apps.task.tasks.prueba',
+#         'schedule': crontab(hour=16, day_of_week=5),
+#     },
+# }
