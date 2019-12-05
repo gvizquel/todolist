@@ -11,7 +11,8 @@ Una mini aplicación web para manejar un "TODO list" con Django 2
 
 ## Consideraciones
 
-- Revisar el archivo requeriments.txt para las dependencias y versiones del las aplicaciones de soporte al desarrollo utilizadas
+- Se utilizo pipenv para la gestión del entorno virtual y las librerias.
+- Para instalar todas las librerias puede usar el metodo tradicional (pip install -r requirements.txt) o pipenv install
 - Se utilizo Python 3.7.2
 - Se utilizaron las plantillas provistas por AdminLTE 3 Control Panel Template basadas en bootstrap 4
 - El desarrollo funcional se realizo utilizando el paradigma de vistas basadas en clases de Django (Class-Based Views).
@@ -20,9 +21,9 @@ Una mini aplicación web para manejar un "TODO list" con Django 2
 - DBMS es sqlite3.
 - Una vez iniciado el servidor de pruebas (./manage.py runserver) la ruta de acceso a la aplicación es <http://http://127.0.0.1:8000>
 - Las tareas se deben redactar con hasta un maximo de 255 caracacteres alfa númericos.
-- La plaicación es multi idioma se configuro para ingles (base), español y franses, se utilizó django-rosetta para apoyar la traducción.
+- La aplicación es multi idioma y se pre configuro para ingles (base), español y franses, se utilizó django-rosetta para apoyar la traducción. La opción de administración de la traducción solo es visible en el menú lateral para los usuarios admin.
 
 ## PENDIENTES
 
-- Pruebas unitarias
-- Implementación redis
+- Pruebas unitarias.
+- Implementación redis.
