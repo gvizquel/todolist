@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-04 10:22-0400\n"
+"PO-Revision-Date: 2019-12-04 10:50-0428\n"
+"Last-Translator: b'  <admin@todolist.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.3\n"
+
+#: apps/main/templates/main/delete_modal.html:20
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: apps/main/templates/main/delete_modal.html:22
+msgid "Accept"
+msgstr "Aceptar"
+
+#: apps/main/templates/main/detail_modal.html:18
+#: apps/main/templates/main/main.html:195
+msgid "Close"
+msgstr "Cerrar"
+
+#: apps/main/templates/main/form.html:54 apps/main/templates/main/form.html:78
+msgid "Save"
+msgstr "Guardar"
+
+#: apps/main/templates/main/list.html:22
+msgid "Create"
+msgstr "Crear"
+
+#: apps/main/templates/main/list.html:31
+msgid "Actions"
+msgstr "Acciones"
+
+#: apps/main/templates/main/list.html:89
+msgid "en.lang "
+msgstr ""
+
+#: apps/main/templates/main/main.html:170
+msgid "Language"
+msgstr "Idioma"
+
+#: apps/main/templates/main/main.html:192
+msgid "Profile"
+msgstr "Perfil"
+
+#: apps/main/templates/main/main.html:232
+msgid "Version"
+msgstr "Versión"
+
+#: apps/main/templates/main/main.html:234
+msgid "All rights reserved."
+msgstr "Todos los derechos reservados"
+
+#: apps/main/templates/main/main.html:276
+msgid ""
+"Your account does not have the necessary privileges to access this section. "
+"To continue, log in with an account that has the necessary privileges."
+msgstr ""
+"Tú cuneta no tiene los privilegios necesarios para acceder a esta sección. "
+"Para continuar, ingrese con una cuenta con los respectivos privilegios."
+
+#: apps/main/templates/main/main.html:278
+msgid "Please login to visit this page."
+msgstr "Por favor ingrese para poder visitar esta página"
+
+#: apps/main/templates/main/menu.html:29
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: apps/main/templates/main/menu.html:35
+msgid "Farm Dashboard"
+msgstr "Tablero de la Finca"
+
+#: apps/main/templates/main/menu.html:41
+msgid "Flock Dashboard"
+msgstr "Tablero del Rebaño"
+
+#: apps/main/templates/main/menu.html:47
+msgid "Animal Dashboard"
+msgstr "Tablero de Animales"
+
+#: apps/main/views/main.py:50
+msgid "Detail"
+msgstr "Detalle"
+
+#: apps/main/views/main.py:71 apps/main/views/main.py:83
+msgid "Add"
+msgstr "Agregar"
+
+#: apps/main/views/main.py:96
+#, python-format
+msgid "The %(object)s, was succesfully created"
+msgstr ""
+
+#: apps/main/views/main.py:124
+msgid "Update"
+msgstr "Actualizar"
+
+#: apps/main/views/main.py:137
+#, python-format
+msgid "The %(object)s, was succesfully updated"
+msgstr ""
+
+#: apps/main/views/main.py:154
+#, python-format
+msgid "Delete %(obj_name)s"
+msgstr ""
+
+#~ msgid "name"
+#~ msgstr "nombre"
+
+#~ msgid "Prefix"
+#~ msgstr "Prefijo"
+
+#~ msgid "initial"
+#~ msgstr "inicial"
+
+#~ msgid "increment"
+#~ msgstr "incremento"
+
+#~ msgid "Last"
+#~ msgstr "Ultimo"
+
+#~ msgid "Next"
+#~ msgstr "Siguiente"
+
+#~ msgid "sequence"
+#~ msgstr "sequencia"
+
+#~ msgid "sequences"
+#~ msgstr "sequencias"
+
+#~ msgid "Delete"
+#~ msgstr "Eliminar"

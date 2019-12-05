@@ -1,0 +1,29 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content bg-danger">
+    <form class="form-horizontal" role="form" method="post" action="{{ action_url }}">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+      {% endfor %}
+      <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ del_mesage_1|safe|escape|urlize }}</p>
+        <p>{{ del_mesage_2|safe|escape|urlize }}</p>
+        <p>{{ del_mesage_3|safe|escape|urlize  }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ _('Cancel') }}</button>
+        {% if removable %}
+        <button type="submit" class="btn btn-outline-light pull-left">{{ _('Accept') }}</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

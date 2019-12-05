@@ -1,0 +1,83 @@
+{% extends "main/main.html" %}
+{% load humanize %}
+{% load static %}
+
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+{% block header %}
+<link rel="shortcut icon" href="{% static '.' %}/dist/favicon.png" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static '/plugins/fontawesome-free/css/all.min.css' %}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ STATIC_URL }}plugins/toastr/toastr.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static '/dist/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- Theme Flags -->
+<link rel="stylesheet" href="{% static 'flag-icon-css-master/css/flag-icon.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+{{ form.media }}
+{% endblock header %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="row" style="padding:5px;">
+  <div class="col-sm-12">
+    <form role="form" method="post">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+      {% endfor %}
+      <div class="card">
+        <div class="card-header d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">{{ _("Save") }}</button>
+        </div>
+        <div class="card-body">
+          <div class="form-row">
+            {% for field in form.visible_fields %}
+            {% if field.auto_id != "id_note" %}
+            <div class="form-group row col-sm-6">
+              <label class="col-sm-12 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <div class="col-sm-12">
+                {{ field }}
+                <span class="help-block">
+                  {% for error in field.errors %}
+                  <ul>
+                    <li class="text-red">{{ error }}</li>
+                  </ul>
+                  {% endfor %}
+                </span>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">{{ _("Save") }}</button>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+{% endblock javascripts %}

@@ -6,15 +6,20 @@ verify_ssl = true
 [dev-packages]
 pep8 = "*"
 pylint = "*"
+pylint-django = "*"
+autopep8 = "*"
+isort = "*"
+django-extensions = "*"
 
 [packages]
-django = "*"
-django-settings-export = "*"
-jinja2 = "*"
-psycopg2-binary = "*"
-psycopg2 = "*"
+django = "==2.*"
+django-bootstrap-datepicker-plus = "*"
 pillow = "*"
-requests = "*"
+django-rosetta = "*"
+django-ckeditor = "*"
+django-autocomplete-light = "*"
+django-bootstrap4 = "*"
+django-settings-export = "*"
 
 [requires]
 python_version = "3.7"

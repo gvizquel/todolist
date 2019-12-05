@@ -1,0 +1,256 @@
+{% extends "main/main.html" %}
+{% load humanize static %}
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+{% block header %}
+<link rel="shortcut icon" href="{% static '.' %}/dist/favicon.png" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static '/plugins/fontawesome-free/css/all.min.css' %}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Toastr -->
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static '/dist/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- Theme Flags -->
+<link rel="stylesheet" href="{% static 'flag-icon-css-master/css/flag-icon.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+
+<!-- jQuery -->
+<script type="text/javascript" src="{% static '/admin/js/vendor/jquery/jquery.js' %}"></script>
+{% endblock header %}
+{% block stylesheets %}
+<!-- Cropper JS -->
+<link rel="stylesheet" href="{% static 'css/cropper.css' %}">
+<style>
+  .label {
+    cursor: pointer;
+    padding: 0px;
+  }
+
+  .progress {
+    display: none;
+    margin-bottom: 1rem;
+  }
+
+  .img-container img {
+    max-width: 100%;
+  }
+
+  .profile-user-img {
+    border: 3px solid #70c745;
+    margin: 0 auto;
+    padding: 3px;
+    width: 100px;
+  }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Profile Image -->
+      <div class="card card-outline">
+        <div class="card-body box-profile">
+          <div class="text-center">
+            <label class="label" data-toggle="tooltip" title="Change your avatar">
+              <img class="profile-user-img img-fluid img-circle" id="avatar_img" src="{{ request.user.avatar.url }}"
+                alt="{{ request.user }}">
+              <form method="post" enctype="multipart/form-data" action="{% url 'usercustom:avatar' %}" id="formUpload">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <input type="file" class="sr-only" id="id_avatar" name="avatar" accept="image/*">
+              </form>
+            </label>
+          </div>
+          <h3 class="profile-username text-center">{{ user }}</h3>
+          <a href="{% url 'usercustom:change-password'  %}"
+            class="btn btn-primary btn-block"><b>{{ _('Change Password') }}</b></a>
+        </div><!-- /.card-body -->
+      </div><!-- /.card -->
+    </div><!-- /.col -->
+    <div class="col-md-9">
+      <!-- Profile Image -->
+      <div class="card">
+        <div class="card-body">
+          <form class="form-horizontal" action="{% url 'usercustom:profile' %}" method="post" role="form">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+            {% if forloop.counter0|divisibleby:"2" or forloop.counter0 == 0 %}
+            <div class="row">
+              {%endif%}
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="id_first_name">{{ field.label }}</label>
+                  {{ field }}
+                </div>
+                <!-- /.col -->
+              </div>
+              {% if forloop.counter|divisibleby:"2" %}
+            </div>
+            <!-- /.row -->
+            {% elif forloop.last %}
+            <div class="col-sm-6">
+              <div class="form-group">
+              </div>
+              <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.row -->
+        {%endif%}
+        {% endfor %}
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-right">{{ _('Submit') }}</button>
+          </div>
+        </div>
+        </form>
+      </div><!-- /.card-body -->
+    </div><!-- /.card -->
+  </div><!-- /.col -->
+</div><!-- /.row -->
+</div><!-- /.container-fluid -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">{{ _('Crop the image') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="img-container"><img id="image" src="{{ request.user.avatar.url }}"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{ _('Cancel') }}</button>
+        <button type="button" class="btn btn-outline-primary" id="crop">{{ _('Crop') }}</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /.modal -->
+{% endblock content %}
+{% block javascripts %}
+<!-- cropper 4.0.0 -->
+<script src="{% static 'js/cropper.js' %}"></script>
+<!-- page script -->
+<script type="text/javascript">
+   // Script para cortar el avatar con crop.js
+   window.addEventListener('DOMContentLoaded', function () {
+    var avatar = document.getElementById('avatar_img');
+    var user_avatar = document.getElementById('user_avatar');
+    var image = document.getElementById('image');
+    var input = document.getElementById('id_avatar');
+    var $progress = $('.progress');
+    var $progressBar = $('.progress-bar');
+    var $alert = $('.alert');
+    var $modal = $('#modal');
+    var cropper;
+    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    input.addEventListener('change', function (e) {
+      var files = e.target.files;
+      var done = function (url) {
+        input.value = '';
+        image.src = url;
+        $alert.hide();
+        $modal.modal('show');
+      };
+      var reader;
+      var file;
+      var url;
+
+      if (files && files.length > 0) {
+        file = files[0];
+
+        if (URL) {
+          done(URL.createObjectURL(file));
+        } else if (FileReader) {
+          reader = new FileReader();
+          reader.onload = function (e) {
+            done(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    });
+
+    $modal.on('shown.bs.modal', function () {
+      cropper = new Cropper(image, {
+        aspectRatio: 1,
+        viewMode: 3,
+      });
+    }).on('hidden.bs.modal', function () {
+      cropper.destroy();
+      cropper = null;
+    });
+
+    document.getElementById('crop').addEventListener('click', function () {
+      var initialAvatarURL;
+      var canvas;
+
+      $modal.modal('hide');
+
+      if (cropper) {
+        canvas = cropper.getCroppedCanvas({width: 160, height: 160,});
+        initialAvatarURL = avatar.src;
+        avatar.src = canvas.toDataURL(); //Altero el avatar del perfil
+        user_avatar.src = canvas.toDataURL(); //Altero el avatar de la barra superior
+        $progress.show();
+        $alert.removeClass('alert-success alert-warning');
+        canvas.toBlob(function (blob) {
+          var formData = new FormData();
+
+          formData.append('avatar', blob, 'avatar.jpg');
+          $.ajax("{% url 'usercustom:avatar' %}", {
+            method: 'POST',
+            headers:{"X-CSRFToken": csrftoken},
+            data: formData,
+            processData: false,
+            contentType: false,
+
+            xhr: function () {
+              var xhr = new XMLHttpRequest();
+              xhr.upload.onprogress = function (e) {
+                var percent = '0';
+                var percentage = '0%';
+                if (e.lengthComputable) {
+                  percent = Math.round((e.loaded / e.total) * 100);
+                  percentage = percent + '%';
+                  $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+                }
+              };
+              return xhr;
+            },
+
+            success: function () {
+            },
+
+            error: function () {
+              avatar.src = initialAvatarURL;
+            },
+
+            complete: function () {
+              $progress.hide();
+            },
+          });
+          return false;
+        });
+      }
+    });
+  });
+</script>
+{% endblock javascripts %}

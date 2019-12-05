@@ -1,0 +1,6 @@
+<li class="nav-item">
+  <a href="{% url 'Task:list' %}" class="nav-link {% if 'task' in request.path %}active{% endif %}">
+    <i class="nav-icon fas fa-tasks"></i>
+    <p>{{ _("Task")}}</p>
+  </a>
+</li>

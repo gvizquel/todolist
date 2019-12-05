@@ -1,0 +1,335 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-04 10:22-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: apps/usercustom/forms.py:42 apps/usercustom/models/__init__.py:39
+msgid "Name"
+msgstr ""
+
+#: apps/usercustom/forms.py:43
+msgid "Last Name"
+msgstr ""
+
+#: apps/usercustom/forms.py:44 apps/usercustom/models/__init__.py:42
+msgid "Secondary email"
+msgstr ""
+
+#: apps/usercustom/forms.py:45 apps/usercustom/models/__init__.py:45
+msgid "Phone"
+msgstr ""
+
+#: apps/usercustom/forms.py:46 apps/usercustom/models/__init__.py:46
+msgid "Mobile Phone"
+msgstr ""
+
+#: apps/usercustom/forms.py:47 apps/usercustom/models/__init__.py:47
+msgid "Birthdate"
+msgstr ""
+
+#: apps/usercustom/forms.py:48 apps/usercustom/models/__init__.py:48
+msgid "Sex"
+msgstr ""
+
+#: apps/usercustom/forms.py:147 apps/usercustom/forms.py:205
+#: apps/usercustom/models/__init__.py:41
+msgid "Email"
+msgstr ""
+
+#: apps/usercustom/forms.py:158 apps/usercustom/models/__init__.py:33
+#: apps/usercustom/templates/usercustom/login.html:74
+#: apps/usercustom/templates/usercustom/signup.html:81
+msgid "Password"
+msgstr ""
+
+#: apps/usercustom/forms.py:163
+#: apps/usercustom/templates/usercustom/signup.html:88
+msgid "Retype password"
+msgstr ""
+
+#: apps/usercustom/forms.py:174 apps/usercustom/forms.py:178
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: apps/usercustom/forms.py:196
+#: apps/usercustom/templates/usercustom/login.html:67
+msgid "User"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:26
+msgid "FEMALE"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:27
+msgid "MALE"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:34
+msgid "Last login"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:35
+msgid "Super Admin"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:36
+msgid "Staff"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:37
+msgid "Active"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:38
+msgid "User name"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:40
+msgid "Last name"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:43
+msgid "Letter C.I."
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:44
+msgid "Identity card"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:62
+msgid "Person"
+msgstr ""
+
+#: apps/usercustom/models/__init__.py:63
+msgid "People"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:7
+#: apps/usercustom/templates/usercustom/login.html:86
+#: apps/usercustom/templates/usercustom/password_reset_form.html:8
+#: apps/usercustom/templates/usercustom/password_reset_form.html:86
+#: apps/usercustom/templates/usercustom/signup.html:7
+#: apps/usercustom/templates/usercustom/signup.html:101
+msgid "Login"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:47
+#: apps/usercustom/templates/usercustom/password_reset_form.html:46
+#: apps/usercustom/templates/usercustom/signup.html:45
+msgid "Language"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:59
+msgid "Log in"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:81
+#: apps/usercustom/templates/usercustom/password_reset_form.html:91
+#: apps/usercustom/templates/usercustom/signup.html:100
+msgid "Password recovery"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:82
+#: apps/usercustom/templates/usercustom/password_reset_form.html:87
+msgid "Signup"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:122
+msgid ""
+"Your account does not have the necessary privileges to access this section. "
+"To continue, log in with an account that has the necessary privileges."
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/login.html:124
+msgid "Please login to visit this page."
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/logoutmodal.html:5
+msgid "Are you sure you want to logout?"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/logoutmodal.html:10
+msgid "Select logout if you want to leave the session."
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/logoutmodal.html:12
+#: apps/usercustom/templates/usercustom/profile.html:138
+msgid "Cancel"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/logoutmodal.html:13
+msgid "Logout"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:14
+#: apps/usercustom/templates/usercustom/password_change_form.html:46
+msgid "Save"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:18
+msgid "Actual Password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:20
+msgid "Enter the actual password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:27
+msgid "New Password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:29
+msgid "Enter the new password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_change_form.html:36
+#: apps/usercustom/templates/usercustom/password_change_form.html:38
+msgid "Retype the new password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/password_reset_form.html:58
+msgid "Password Recovery"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/profile.html:78
+msgid "Change Password"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/profile.html:117
+msgid "Submit"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/profile.html:130
+msgid "Crop the image"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/profile.html:139
+msgid "Crop"
+msgstr ""
+
+#: apps/usercustom/templates/usercustom/signup.html:57
+#: apps/usercustom/templates/usercustom/signup.html:105
+msgid "Sign up"
+msgstr ""
+
+#: apps/usercustom/views/activate.py:47
+msgid ""
+"Welcome, your account has been successfully activated. Please log in using "
+"your credentials."
+msgstr ""
+
+#: apps/usercustom/views/activate.py:52
+msgid ""
+"The sign up confirm link is invalid. If your account is not yet active, use "
+"the password recovery link."
+msgstr ""
+
+#: apps/usercustom/views/avatar.py:55 apps/usercustom/views/profile.py:67
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: apps/usercustom/views/passwordchange.py:23
+msgid "Your password change was successfully                 processed"
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:78 apps/usercustom/views/signup.py:58
+msgid "Invalid reCAPTCHA"
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:104
+msgid ""
+"Welcome back, your password has been successfully modified. Please log in "
+"using your credentials."
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:109
+msgid "The password recovery link is invalid or has already been used."
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:121
+#, python-format
+msgid "%(proj_name)s password recovery"
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:133
+#, python-format
+msgid ""
+"You received this email because you requested that your password be reset to "
+"\"%(proj_name)s\".\n"
+"\n"
+"Please go to the following link to recover your password:\n"
+"\n"
+"http://%(domain)s%(url)s\n"
+"\n"
+"The credentials of this link last for one (1) day.\n"
+"\n"
+"Best regards.\n"
+"\n"
+"The %(proj_name)s team."
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:140
+#, python-format
+msgid ""
+"Instructions to recover your password in %(proj_name)s were sent to the "
+"email account %(email)s"
+msgstr ""
+
+#: apps/usercustom/views/passwordreset.py:148
+#, python-format
+msgid "The email provided is not registered in %(proj_name)s"
+msgstr ""
+
+#: apps/usercustom/views/profile.py:27
+msgid "Your profile was updated successfully"
+msgstr ""
+
+#: apps/usercustom/views/signup.py:35
+msgid ""
+"Your account was created successfully. A link was sent to your email that "
+"you must sign in to confirm your sign up."
+msgstr ""
+
+#: apps/usercustom/views/signup.py:65
+#, python-format
+msgid "%(proj_name)s sign up"
+msgstr ""
+
+#: apps/usercustom/views/signup.py:75
+#, python-format
+msgid ""
+"Thank you for registering in %(proj_name)s, your username is: %(user)s.\n"
+"\n"
+"Please go to the following link to confirm your registration and activate "
+"your account:\n"
+"\n"
+"http://%(domain)s%(url)s\n"
+"\n"
+"The credentials of this link last for one (1) day.\n"
+"\n"
+"Best regards.\n"
+"\n"
+"The %(proj_name)s team."
+msgstr ""
+
+#: apps/usercustom/views/signup.py:82
+msgid ""
+"Your account has been created successfully. Open the link that was sent to "
+"your email, to confirm your registration and activate your account."
+msgstr ""

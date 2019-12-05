@@ -1,0 +1,117 @@
+{% extends "main/main.html" %}
+{% load humanize %}
+{% load static %}
+{% load main_tags %}
+{% block stylesheets %}
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ STATIC_URL }}DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}DataTables/Responsive-2.2.2/css/responsive.bootstrap4.min.css">
+<style>
+  .dataTables_filter {
+    width: 50%;
+    float: right;
+    text-align: right;
+  }
+</style>
+{% endblock stylesheets %}
+{% block content %}
+<div class="row" style="padding:5px;">
+  <div class="card card-outline lg col-12">
+    <div class="card-header">
+      <button onclick="return abrir_modal('{% url add_url %}')" data-toggle="tooltip" title="Ver" type="button"
+        class="btn btn-primary">{{ _("Create") }}</button>
+    </div>
+    <div class="card-body">
+      <table id="list_table" class="table table-sm table-striped table-hover">
+        <thead>
+          <tr>
+            {% for field in fields %}
+            <th>{{ field.string }}</th>
+            {% endfor %}
+            <th class="text-center">{{ _("Actions") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in object_list %}
+          <tr>
+            {% for field in fields %}
+            <td class="{{ field.align }}">
+              {% if  field.humanize %}
+              {{ object|get_obj_attr:field.field|intcomma }}
+              {% else %}
+              {{ object|get_obj_attr:field.field }}
+              {% endif %}
+            </td>
+            {% endfor %}
+            <td class="text-center">
+              <button onclick="return abrir_modal('{% url detail_url object.pk %}')" data-toggle="tooltip" title="Ver"
+                type="button" class="btn btn-xs btn-outline-primary"><span class="far fa-eye"></span></button>
+              <button onclick="return abrir_modal('{% url update_url object.pk %}')" data-toggle="tooltip" title="Ver"
+                  type="button" class="btn btn-xs btn-outline-primary"><span class="far fa-edit"></span></button>
+
+              <button onclick="return abrir_modal('{% url delete_url object.pk %}')" data-toggle="tooltip"
+                title="Eliminar" type="button" class="btn btn-xs btn-outline-primary"><span
+                  class="far fa-trash-alt"></span></span></button>
+              <button onclick="return abrir_modal('{% url 'Task:check' object.pk %}')" data-toggle="tooltip"
+                title="Marcar como resuelta" type="button" class="btn btn-xs btn-outline-primary"{% if object.solve %}disabled{% endif %}><span
+                  class="fa fa-check"></span></button>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<!-- DataTables -->
+<script src="{{ STATIC_URL }}DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>
+
+<script src="{{ STATIC_URL }}DataTables/Buttons-1.5.6/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/Responsive-2.2.2/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/JSZip-2.5.0/jszip.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
+<script src="{{ STATIC_URL }}DataTables/Buttons-1.5.6/js/buttons.html5.min.js"></script>
+<script src="{{ STATIC_URL }}DataTables/Buttons-1.5.6/js/buttons.colVis.min.js"></script>
+<!-- page script -->
+<script>
+  $(document).ready(function () {
+    var table = $('#list_table').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "language": {"url": "{{ STATIC_URL }}DataTables/i18n/{{ _("en.lang ") }}"},
+      "dom": 'lBfrtip',
+      //"dom": '<lBf<t>ip>',
+      "buttons": [{
+          extend: 'copyHtml5',
+          exportOptions: {
+            columns: [0, 1]
+          }
+        },
+        {
+          extend: 'csvHtml5',
+          exportOptions: {
+            columns: [0, 1]
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: [0, 1]
+          }
+        }
+      ]
+    });
+  });
+</script>
+{% endblock javascripts %}

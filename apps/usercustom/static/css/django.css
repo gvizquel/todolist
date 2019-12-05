@@ -1,0 +1,20 @@
+.django-background{
+        background-color:#092E20 !important;
+}
+
+.django-font-w{
+        color: fff !important;
+}
+
+django-font-g{
+        color: #092E20;
+}
+
+
+.navbar-secondary {
+    background-color: #092e20;
+}
+
+[class*=sidebar-dark-] {
+    background-color: #092e20;
+}

@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Rosetta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-04 10:22-0400\n"
+"PO-Revision-Date: 2019-11-26 10:48-0428\n"
+"Last-Translator: b'Gerson Vizquel <gvizquel@gmail.com>'\n"
+"Language-Team: French <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.3\n"
+
+#: apps/rosetta/templates/rosetta/file-list.html:6
+#: apps/rosetta/templates/rosetta/form.html:7
+#: apps/rosetta/templates/rosetta/menu.html:4
+msgid "Translate"
+msgstr "Traduire"
+
+#: apps/rosetta/templates/rosetta/file-list.html:28
+msgid "Translate into:"
+msgstr "Se traduire par"
+
+#: apps/rosetta/templates/rosetta/file-list.html:49
+msgid "Application"
+msgstr "Application"
+
+#: apps/rosetta/templates/rosetta/file-list.html:50
+msgid "Progress"
+msgstr "Progression"
+
+#: apps/rosetta/templates/rosetta/file-list.html:51
+msgid "Messages"
+msgstr "Messages"
+
+#: apps/rosetta/templates/rosetta/file-list.html:52
+#: apps/rosetta/templates/rosetta/form.html:42
+msgid "Translated"
+msgstr "Traduit"
+
+#: apps/rosetta/templates/rosetta/file-list.html:53
+#: apps/rosetta/templates/rosetta/form.html:61
+msgid "Fuzzy entries call for revision by the translator."
+msgstr "Les entrées confuses nécessitent la révision du traducteur."
+
+#: apps/rosetta/templates/rosetta/file-list.html:54
+#: apps/rosetta/templates/rosetta/form.html:44
+#: apps/rosetta/templates/rosetta/form.html:62
+msgid "Fuzzy"
+msgstr "Flous"
+
+#: apps/rosetta/templates/rosetta/file-list.html:55
+msgid "Obsolete"
+msgstr "Obsolètes"
+
+#: apps/rosetta/templates/rosetta/file-list.html:56
+msgid "File"
+msgstr "Fichier"
+
+#: apps/rosetta/templates/rosetta/file-list.html:85
+msgid "Nothing to translate!"
+msgstr "Rien à Traduire!"
+
+#: apps/rosetta/templates/rosetta/form.html:27
+#, fuzzy, python-format
+#| msgid "Translate into %(rosetta_i18n_lang_name)s"
+msgid "Translate <b>%(rosetta_i18n_app)s</b> aplication into "
+msgstr "Traduire en %(rosetta_i18n_lang_name)s"
+
+#: apps/rosetta/templates/rosetta/form.html:33
+msgid "Search"
+msgstr "Recherche"
+
+#: apps/rosetta/templates/rosetta/form.html:35
+msgid "Go"
+msgstr "Go"
+
+#: apps/rosetta/templates/rosetta/form.html:40
+msgid "Untranslated"
+msgstr "Non-traduits"
+
+#: apps/rosetta/templates/rosetta/form.html:46
+msgid "All"
+msgstr "Tous"
+
+#: apps/rosetta/templates/rosetta/form.html:57
+msgid "Original"
+msgstr "Original"
+
+#: apps/rosetta/templates/rosetta/form.html:63
+msgid "Occurrences(s)"
+msgstr "Occurrences(s)"
+
+#: apps/rosetta/templates/rosetta/form.html:76
+#: apps/rosetta/templates/rosetta/form.html:79
+#: apps/rosetta/templates/rosetta/form.html:101
+#: apps/rosetta/templates/rosetta/form.html:104
+msgid "Context hint"
+msgstr "Indice contextuel"
+
+#: apps/rosetta/templates/rosetta/form.html:130
+msgid "Save and translate next block"
+msgstr "Sauver et traduire le prochain bloc"
+
+#: apps/rosetta/templates/rosetta/form.html:154
+msgid "Displaying:"
+msgstr "Affichés:"
+
+#: apps/rosetta/templates/rosetta/form.html:159
+#, python-format
+msgid ""
+"%(hits)s/%(message_number)s\n"
+"          message"
+msgid_plural "%(hits)s/%(message_number)s messages"
+msgstr[0] "%(hits)s/%(message_number)s message"
+msgstr[1] " %(hits)s/%(message_number)s messages"
+
+#, fuzzy
+#~| msgid "Application"
+#~ msgid "aplication into"
+#~ msgstr "Application"
+
+#~ msgid "suggest"
+#~ msgstr "suggérer"
+
+#~ msgid "Language selection"
+#~ msgstr "Sélection de la langue"
+
+#~ msgid ""
+#~ "%(more_count)s\n"
+#~ "                more"
+#~ msgid_plural "%(more_count)s more"
+#~ msgstr[0] "%(more_count)s de plus"
+#~ msgstr[1] "%(more_count)s de plus"

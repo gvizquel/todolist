@@ -1,0 +1,81 @@
+{% extends "main/main.html" %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">{{ _("Translate") }}</li>
+  </ol>
+</nav>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<style>
+  .boxsizingBorder {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+</style>
+{% if has_pos %}
+<div class="card">
+  <div class="card-header d-flex p-0">
+    <h3 class="card-title p-3">{{ _("Translate into:") }}</h3>
+    <ul class="nav nav-pills ml-auto p-2">
+      {% for lid,language,pos in languages %}
+      {% if pos and lid != 'en' %}
+      <li class="nav-item">
+        <a class="nav-link{% if lid == 'es' %} active{% endif %}" href="#{{ lid }}" data-toggle="tab">{{ language }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div><!-- /.card-header -->
+
+  <div class="card-body">
+    <div class="tab-content">
+      {% for lid,language,pos in languages %}
+      {% if pos and lid != 'en' %}
+      <div class="tab-pane{% if lid == 'es' %} active{% endif %}" id="{{ lid }}">
+
+        <table class="table table-bordered" cellspacing="0">
+          <thead>
+            <tr>
+              <th>{{ _('Application') }}</th>
+              <th class="r">{{ _('Progress') }}</th>
+              <th class="r">{{ _('Messages') }}</th>
+              <th class="r">{{ _('Translated') }}</th>
+              <th class="info-tip r" title="{{ _('Fuzzy entries call for revision by the translator.') }}">
+                {{ _('Fuzzy') }}</th>
+              <th class="r">{{ _('Obsolete') }}</th>
+              <th>{{ _('File') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app,path,po in pos %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+              <td class="enlace"><a
+                  href="{% url 'rosetta-form' po_filter=po_filter lang_id=lid idx=forloop.counter0 %}">{{ app|title }}</a>
+              </td>
+              <td class="ch-progress r">{{po.percent_translated}}%</td>
+              {% with po.untranslated_entries|length as len_untranslated_entries %}
+              <td class="ch-messages r">{{po.translated_entries|length|add:len_untranslated_entries}}</td>
+              {% endwith %}
+              <td class="ch-translated r">{{po.translated_entries|length}}</td>
+              <td class="ch-fuzzy r">{{po.fuzzy_entries|length}}</td>
+              <td class="ch-obsolete r">{{po.obsolete_entries|length}}</td>
+              <td class="hint">{{ path }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.tab-pane -->
+      {% endif %}
+      {% endfor %}
+    </div><!-- /.tab-content -->
+  </div><!-- /.card-body -->
+</div><!-- /.card -->
+{% else %}
+<h1>{{ _('Nothing to translate!') }}</h1>
+{% endif %}
+{% endblock %}

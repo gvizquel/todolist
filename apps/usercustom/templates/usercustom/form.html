@@ -1,0 +1,125 @@
+{% extends "main/main.html" %}
+{% load humanize %}
+{% load static %}
+{% load main_tags %}
+
+{% load bootstrap4 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+{% block header %}
+<link rel="shortcut icon" href="{% static '.' %}/dist/favicon.png" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static '/plugins/fontawesome-free/css/all.min.css' %}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ STATIC_URL }}plugins/toastr/toastr.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static '/dist/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- Theme Flags -->
+<link rel="stylesheet" href="{% static 'flag-icon-css-master/css/flag-icon.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+{{ form.media }}
+{% endblock header %}
+
+{% block title %} farm | {% if object %}Editar{% else %}Agregar{% endif %} {% endblock title %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="row" style="padding:5px;">
+  <div class="col-sm-12">
+    <form role="form" action="{% url 'Farm:update' object.pk %}" method="post">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+      {% endfor %}
+      <div class="card">
+        <div class="card-header d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">{% if object %}Guardar{% else %}Agregar{% endif %}</button>
+        </div>
+        <div class="card-body">
+          <div class="form-row">
+            {% for field in form.visible_fields %}
+            {% if field.auto_id != "id_note" %}
+            <div class="form-group row col-sm-6">
+              <label class="col-sm-12 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              <div class="col-sm-12">
+                {{ field }}
+                <span class="help-block">
+                  {% for error in field.errors %}
+                  <ul>
+                    <li class="text-red">{{ error }}</li>
+                  </ul>
+                  {% endfor %}
+                </span>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">{% if object %}Guardar{% else %}Agregar{% endif %}</button>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+<!-- page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.static-select2').select2()
+  })
+  $(function ($) {
+    "use strict"; // Start of use strict
+
+    $(window).on('map:init', function (e) {
+      geodjango_id_punto.geom_type = 'Point';
+      geodjango_id_poligonal.geom_type = 'Polygon';
+      var detail = e.originalEvent ? e.originalEvent.detail : e.detail,
+        mapbox = new L.tileLayer(
+          'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoiZGNoYXBsaW5za3kiLCJhIjoiY2o3d2p1eWdoNXAzMDJxbnV1ZG05YmF6ZiJ9.tXdY9DfXJiR7t0GgYKMiug'
+          }),
+
+        mapbox_sat = new L.tileLayer(
+          'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets-satellite',
+            accessToken: 'pk.eyJ1IjoiZGNoYXBsaW5za3kiLCJhIjoiY2o3d2p1eWdoNXAzMDJxbnV1ZG05YmF6ZiJ9.tXdY9DfXJiR7t0GgYKMiug'
+          });
+
+      detail.map.addLayer(mapbox);
+      var baseLayers = {
+        "Mapa": mapbox,
+        "Satelite": mapbox_sat
+      };
+
+      L.control.layers(baseLayers).addTo(detail.map);
+
+    });
+  }) // End of use strict
+</script>
+
+
+{% endblock javascripts %}

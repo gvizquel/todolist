@@ -1,0 +1,23 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title app-color">{{ title }}</h4>
+      <button type="button" class="close app-color" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      {% for f in object.get_all_fields %}
+        <div class="row row-striped">
+          <div class="col-sm-5 font-weight-bold">{{ f.label|capfirst }}:</div>
+          <div class="col-sm-7">{{ f.value|safe|escape }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary pull-left" data-dismiss="modal">{{ _('Close') }}</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

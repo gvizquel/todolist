@@ -1,0 +1,160 @@
+{% extends "main/main.html" %}
+{% load rosetta i18n %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/translate/files/third-party">{{ _("Translate") }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ rosetta_i18n_lang_name }}</li>
+  </ol>
+</nav>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<style>
+  .boxsizingBorder {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+</style>
+<h3 class="app-color">{% blocktrans  %}Translate <b>{{ rosetta_i18n_app }}</b> aplication into {% endblocktrans %}
+  {{ rosetta_i18n_lang_name|lower }}</h3>
+<div id="changelist" class="card">
+  <div class="card-header d-flex p-0">
+    <div class="justify-content-center align-self-center">
+      <form id="changelist-search" action="" method="get">
+        &nbsp;<input type="text" placeholder="{{ _('Search') }}" size="40" name="query"
+          value="{% if query %}{{query}}{% endif %}" id="searchbar" />
+        <input type="submit" name="s" value="{% trans 'Go' %}" />
+      </form>
+    </div>
+    <ul class="nav nav-pills ml-auto p-2">
+      <li class="nav-item"><a class="nav-link{% if rosetta_i18n_filter == 'untranslated' %} active{% endif %}"
+          href="?{{ filter_query_string_base }}&amp;msg_filter=untranslated">{% trans "Untranslated" %}</a></li>
+      <li class="nav-item"><a class="nav-link{% if rosetta_i18n_filter == 'translated' %} active{% endif %}"
+          href="?{{ filter_query_string_base }}&amp;msg_filter=translated">{% trans "Translated" %}</a></li>
+      <li class="nav-item"><a class="nav-link{% if rosetta_i18n_filter == 'fuzzy' %} active{% endif %}"
+          href="?{{ filter_query_string_base }}&amp;msg_filter=fuzzy">{% trans "Fuzzy" %}</a></li>
+      <li class="nav-item"><a class="nav-link{% if rosetta_i18n_filter == 'all' %} active{% endif %}"
+          href="?{{ filter_query_string_base }}&amp;msg_filter=all">{{ _("All") }}</a></li>
+    </ul>
+  </div><!-- /.card-header -->
+
+  <div class="card-body">
+    <form method="post" action="" class="results">
+      {% csrf_token %}
+      <table class="table table-bordered" id="result_list">
+        <thead>
+          <tr>
+            <th>
+              <div class="text">{% trans "Original" %}</div>
+            </th>
+            {% if main_language %}<th>{{ main_language }}</th>{% endif %}
+            <th>{{ rosetta_i18n_lang_name }}</th>
+            <th class="info-tip c" title="{% trans 'Fuzzy entries call for revision by the translator.' %}">
+              {{ _('Fuzzy') }}</th>
+            <th>{% trans "Occurrences(s)" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for message in rosetta_messages %}
+          <tr class="{% cycle 'row1' 'row2' %}">
+            {% if message.msgid_plural %}
+            <td class="original plural">
+              <div class="plural-container">
+                <span class="part">{{message.msgid|format_message|linebreaksbr}}</span><br><br>
+                <span class="part">{{message.msgid_plural|format_message|linebreaksbr}}</span>
+              </div>
+              {% if message.msgctxt %}
+              <span class="context">{% trans "Context hint" %}: {{message.msgctxt|safe}}</span>
+              {% else %}
+              {% if message.comment %}
+              <span class="context">{% trans "Context hint" %}: {{message.comment|safe}}</span>
+              {% endif %}
+              {% endif %}
+
+            </td>
+            <td class="translation">
+              {% for k, msgstr in message.msgstr_plural.items %}
+              <div class="cols-sm-12">
+                <!-- <label for="m_{{message.md5hash}}_{{k}}">{{k}}:</label> -->
+                <textarea rows="{{message.msgid|format_message|lines_count}}" cols="40" id="m_{{message.md5hash}}_{{k}}"
+                  name="m_{{message.md5hash}}_{{k}}" tabindex="{% increment tab_idx %}">{{msgstr}}</textarea>
+              </div>
+              {% endfor %}
+            </td>
+            {% else %}
+            <td class="original">
+              {% if rosetta_settings.ENABLE_REFLANG %}
+              <span class="message">{{ message.ref_txt|format_message|linebreaksbr }}</span>
+              {% else %}
+              <span class="message">{{ message.msgid|format_message|linebreaksbr }}</span>
+              {% endif %}
+              {% if message.msgctxt %}
+              <span class="context">{% trans "Context hint" %}: "{{message.msgctxt|safe}}"</span>
+              {% else %}
+              {% if message.comment %}
+              <span class="context">{% trans "Context hint" %}: {{message.comment|safe}}</span>
+              {% endif %}
+              {% endif %}
+            </td>
+            {% if main_language %}<td class="original">{{ message.main_lang|format_message|linebreaksbr }}</td>
+            {% endif %}
+            <td class="translation">
+              <textarea rows="{{message.msgid|format_message|lines_count}}" cols="40" name="m_{{message.md5hash}}"
+                tabindex="{% increment tab_idx %}">{{message.msgstr}}</textarea>
+            </td>
+            {% endif %}
+            <td class="c">
+              <input type="checkbox" name="f_{{message.md5hash}}" value="1" {% if message|is_fuzzy %}checked="checked"
+                {% endif %} />
+            </td>
+            <td class="location">
+              {% for fn,lineno in message.occurrences %}
+              <code>{{ fn }}{% if lineno %}:{{lineno}}{% endif %}</code><br>
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="submit-row d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" name="_next"
+          tabindex="{% increment tab_idx %}">{{ _("Save and translate next block") }}</button>
+      </div>
+      <div class="d-flex justify-content-center">
+        {% if query %}
+        <input type="hidden" name="query" value="{{query}}" />
+        {% endif %}
+        {% if needs_pagination %}
+        <ul class="pagination">
+          {% for i in page_range %}
+          {% if i == '...' %}
+          <li class="paginate_button page-item previous disabled" id="list_table_previous"><a href="#"
+              aria-controls="list_table" data-dt-idx="0" tabindex="0" class="page-link">{{ i }}</a></li>
+          {% else %}
+          {% if i == page %}
+          <li class="paginate_button page-item previous disabled" id="list_table_previous"><a href="#"
+              aria-controls="list_table" data-dt-idx="0" tabindex="0" class="page-link">{{ i }}</a></li>
+          {% else %}
+          <li class="paginate_button page-item active"><a href="?{{ pagination_query_string_base }}&amp;page={{i}}"
+              aria-controls="list_table" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a></li>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </ul>
+        {% else %}
+        {% trans "Displaying:" %}
+        {% endif %}
+      </div>
+      <div class="d-flex justify-content-center">
+        {% with paginator.object_list|length as hits %}
+        <strong>{% blocktrans count rosetta_i18n_pofile|length as message_number %}{{hits}}/{{message_number}}
+          message{% plural %}{{hits}}/{{message_number}} messages{% endblocktrans %}</strong>
+        {% endwith %}
+      </div>
+    </form>
+  </div><!-- /.card-body -->
+</div>
+{% endblock %}

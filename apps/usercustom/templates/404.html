@@ -1,0 +1,40 @@
+{% extends "main.html" %}
+
+{% block title %} Error | 404 {% endblock title %}
+
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Error 404
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-yellow"> 404</h2>
+        <div class="error-content">
+          <h3><i class="fa fa-warning text-yellow"></i> ¡Que vaina! La página que intenta acceder no se ha encontrado.</h3>
+          <p>
+            No hemos podido encontrar la página que estás buscando.
+            Puedes intentar
+                {% if (ruta|join == request.META.HTTP_REFERER) or (not request.META.HTTP_REFERER) %}
+                    <input class="btn btn-default btn-xs" type=button value="regresar" onClick="javascript:history.go(-1);">
+                {% else %}
+                    <a class="btn btn-default btn-xs" href="{{request.META.HTTP_REFERER }}">regresar</a>
+                {% endif %}
+            a la página anterior.
+          </p>
+        </div>
+        <!-- /.error-content -->
+      </div>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock content %}
