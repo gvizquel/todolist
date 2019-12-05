@@ -16,8 +16,6 @@ django = "==2.*"
 django-bootstrap-datepicker-plus = "*"
 pillow = "*"
 django-rosetta = "*"
-django-ckeditor = "*"
-django-autocomplete-light = "*"
 django-bootstrap4 = "*"
 django-settings-export = "*"
 

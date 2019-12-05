@@ -46,9 +46,6 @@ INSTALLED_APPS = [
     # # Third-Party Apps
     'apps.rosetta',
     'bootstrap_datepicker_plus',
-    'ckeditor',
-    'dal',
-    'dal_select2',
     'bootstrap4',
     'django_extensions',
 ]

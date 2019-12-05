@@ -8,11 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DeleteView, DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-# Thirdparty Libraries
-from dal import autocomplete
-
-# from flock.models import Flock
-
 
 # ========================================================================== #
 class MainListView(ListView):

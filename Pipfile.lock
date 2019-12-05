@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "69671377d33ff62e9a7d12b2f73d3f9b6ebfc42b0518c77548478c3555c508ea"
+            "sha256": "275fd94adef76a1f243f4fb0543167b4d43a7e2f78bb7951ff83ab6d74097940"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -46,13 +46,6 @@
             "index": "pypi",
             "version": "==2.2.8"
         },
-        "django-autocomplete-light": {
-            "hashes": [
-                "sha256:4a32bce7bc3004f49eb36b377ad18bd6a291077904810f22a2b13a6c53215666"
-            ],
-            "index": "pypi",
-            "version": "==3.5.0"
-        },
         "django-bootstrap-datepicker-plus": {
             "hashes": [
                 "sha256:490058eba99d47f48a7d24fa78581c0e36375bdc7aa9605783eeb170d51fd0df",
@@ -67,21 +60,6 @@
             ],
             "index": "pypi",
             "version": "==1.0.1"
-        },
-        "django-ckeditor": {
-            "hashes": [
-                "sha256:46fc9c7346ea36183dc0cea350f98704f8b04c4722b7fe4fb18baf8ae20423fb",
-                "sha256:a59bab13f4481318f8a048b1b0aef5c7da768a6352dcfb9ba0e77d91fbb9462a"
-            ],
-            "index": "pypi",
-            "version": "==5.8.0"
-        },
-        "django-js-asset": {
-            "hashes": [
-                "sha256:8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd",
-                "sha256:c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"
-            ],
-            "version": "==1.2.2"
         },
         "django-rosetta": {
             "hashes": [
