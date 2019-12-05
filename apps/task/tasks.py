@@ -9,16 +9,6 @@ logger = get_task_logger(__name__)
 
 
 @shared_task
-def add(x, y):
-    return print(x + y)
-
-
-@shared_task
-def prueba(text):
-    return print(text)
-
-
-@shared_task
 def check_task():
     logger.info("Solving tasks")
     not_solve = Task.objects.filter(solve=False)
