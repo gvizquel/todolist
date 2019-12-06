@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'django_extensions',
-    'django_celery_beat',
+    # 'django_celery_beat',
 ]
 
 SITE_ID = 1
@@ -235,10 +235,10 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'America/Caracas'
 
-# Let's make things happen
-# CELERY_BEAT_SCHEDULE = {
-#     'solve-task-in-todo-list': {
-#         'task': 'apps.task.tasks.check_task',
-#         'schedule': 30.0,
-#     },
-# }
+Let's make things happen
+CELERY_BEAT_SCHEDULE = {
+    'solve-task-in-todo-list': {
+        'task': 'apps.task.tasks.check_task',
+        'schedule': 30.0,
+    },
+}

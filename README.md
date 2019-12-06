@@ -24,7 +24,7 @@ Una mini aplicación web para manejar un "TODO list" con Django 2
 - La aplicación es multi idioma y se pre configuro para ingles (base), español y franses, se utilizó django-rosetta para apoyar la traducción. La opción de administración de la traducción solo es visible en el menú lateral para los usuarios admin.
 - Se configuró una tarea programada con Celery y Redis para que cada 30 segundos las tareas que no sen resuelto se resuelvan de forma automatica.
 - Para la gestión de tareas programadas con celery  se uso la libreria django-celery-beat.
-- El comando para ejecutar las tareas programadas es: celery -A todolist worker -B --loglevel=debug --   django_celery_beat.schedulers:DatabaseScheduler
+- El comando para ejecutar las tareas programadas es: celery -A todolist worker -B --loglevel=debug
 
 ## PENDIENTES
 
