@@ -62,7 +62,6 @@ class TaskCreate(LoginRequiredMixin, MainCreateView):
         create_object = form.save(commit=False)
         create_object.person = self.request.user
         create_object.save()
-
         return super().form_valid(form)
 
 

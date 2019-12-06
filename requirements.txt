@@ -42,6 +42,7 @@ pytz==2019.3
 redis==3.3.11
 regex==2019.11.1
 requests==2.22.0
+selenium==3.141.0
 six==1.13.0
 soupsieve==1.9.5
 sqlparse==0.3.0

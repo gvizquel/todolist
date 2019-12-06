@@ -4,9 +4,10 @@ import os
 
 # Django Libraries
 from django.utils.translation import ugettext_lazy as _
-from celery.schedules import crontab
 
 # Thirdparty Libraries
+from celery.schedules import crontab
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -234,8 +235,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'America/Caracas'
-
-Let's make things happen
 CELERY_BEAT_SCHEDULE = {
     'solve-task-in-todo-list': {
         'task': 'apps.task.tasks.check_task',

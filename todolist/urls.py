@@ -1,7 +1,7 @@
 # Librerias Django
 # Django Libraries
 from django.conf import settings
-from django.conf.urls import handler404, handler500, include
+from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
@@ -28,6 +28,3 @@ urlpatterns += i18n_patterns(
         name='activate_language'
     ),
 )
-
-handler404 = 'apps.usercustom.views.error_404'
-handler500 = 'apps.usercustom.views.error_500'

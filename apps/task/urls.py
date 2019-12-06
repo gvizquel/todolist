@@ -5,12 +5,12 @@ from django.urls import path
 
 # Local Folders Libraries
 from .views import (
-    TaskCreate,
     DetailTask,
-    TaskUpdate,
-    TaskDelete,
     ListTask,
-    TaskCheck
+    TaskCheck,
+    TaskCreate,
+    TaskDelete,
+    TaskUpdate
 )
 
 # from .routers import router

@@ -16,21 +16,3 @@ from .profile import ProfileView
 from .signup import SignUpView
 
 ChangePasswordView = cambio_clave
-
-
-# ========================================================================== #
-def error_404(request, exception):
-    """Gestion de errores html 404
-    """
-
-    data = {}
-    return render(request, '404.html', data)
-
-
-# ========================================================================== #
-def error_500(request):
-    """Gestion de errores html 500
-    """
-
-    data = {}
-    return render(request, '500.html', data)
