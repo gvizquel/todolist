@@ -10,6 +10,7 @@ pylint-django = "*"
 autopep8 = "*"
 isort = "*"
 django-extensions = "*"
+selenium = "*"
 
 [packages]
 django = "==2.*"
