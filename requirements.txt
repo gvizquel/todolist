@@ -29,7 +29,7 @@ mccabe==0.6.1
 more-itertools==8.0.0
 mots-vides==2015.5.11
 pep8==1.7.1
-Pillow==6.2.1
+Pillow==9.3.0
 polib==1.1.0
 pycodestyle==2.5.0
 pylint==2.4.4
